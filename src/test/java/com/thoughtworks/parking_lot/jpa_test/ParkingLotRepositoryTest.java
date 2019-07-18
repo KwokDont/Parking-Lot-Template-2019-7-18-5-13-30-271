@@ -7,8 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 @DataJpaTest
@@ -35,5 +40,20 @@ public class ParkingLotRepositoryTest {
 
         Assertions.assertEquals("lot1",parkingLot1.getName());
         Assertions.assertEquals(0,parkingLots.size());
+    }
+
+    @Test
+    void should_return_parking_lot_list_when_find_by_range(){
+        ParkingLot parkingLot = new ParkingLot("lot1",20,"zha");
+        ParkingLot parkingLot1 = new ParkingLot("lot2",20,"zha");
+        ParkingLot parkingLot2 = new ParkingLot("lot3",20,"zha");
+        List<ParkingLot> parkingLots = Arrays.asList(parkingLot,parkingLot1,parkingLot2);
+        parkingLotRepository.saveAll(parkingLots);
+        Pageable pageable = PageRequest.of(0, 2);
+
+        Page<ParkingLot> parkingLotPage = parkingLotRepository.findAll(pageable);
+        List<ParkingLot> parkingLots1 = parkingLotPage.getContent();
+
+        Assertions.assertEquals(2,parkingLots1.size());
     }
 }

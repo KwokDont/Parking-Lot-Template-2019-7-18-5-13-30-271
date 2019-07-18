@@ -29,10 +29,9 @@ public class ParkingLotController {
     @GetMapping(value = "/parkinglots",params = {"page","pageSize"})
     public Page<ParkingLot> findParkinglotByPage(@RequestParam int page, @RequestParam int pageSize){
 
-        Pageable pageable = PageRequest.of(page, pageSize);
-        return repository.findAll(pageable);
-//        Page<ParkingLot> ParkingLotPage =
-//        return ParkingLotPage.getContent();
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<ParkingLot> ParkingLotPage = repository.findAll(pageable);
+        return ParkingLotPage;
     }
 
 }
