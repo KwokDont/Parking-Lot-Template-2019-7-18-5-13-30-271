@@ -23,6 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,6 +50,19 @@ public class OrderControllerTest {
         when(orderService.saveOrder(any(), any(), any())).thenReturn(order);
 
         ResultActions resultActions = mockMvc.perform(post("/orders?lotName=lot1&carNo=A380").contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(order)));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.carNo",is("A380")));
+    }
+
+    @Test
+    public void should_update_order_and_parking_lot_info() throws Exception{
+        ParkOrder order = new ParkOrder("lot1", "A380", new Date().getTime(), "open");
+
+        when(orderService.takeCar(any())).thenReturn(order);
+
+        ResultActions resultActions = mockMvc.perform(put("/orders").contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(order)));
 
         resultActions.andExpect(status().isOk())
