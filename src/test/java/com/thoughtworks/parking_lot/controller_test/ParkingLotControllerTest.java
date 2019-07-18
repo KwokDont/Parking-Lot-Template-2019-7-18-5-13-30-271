@@ -99,7 +99,7 @@ public class ParkingLotControllerTest {
         ResultActions resultActions = mockMvc.perform(patch("/parkinglots?name=lot1&capacity=22"));
 
         resultActions.andExpect(status().isOk());
-        verify(parkingLotRepository).updateCapacityByName("lot1",22);
+        verify(parkingLotRepository).updateParkingLotWithCapacityByName("lot1",22);
     }
 
 }

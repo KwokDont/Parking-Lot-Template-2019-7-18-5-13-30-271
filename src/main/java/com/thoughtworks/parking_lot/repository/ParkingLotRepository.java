@@ -7,5 +7,5 @@ public interface ParkingLotRepository extends JpaRepository<ParkingLot,Integer> 
 
     void deleteParkingLotByName(String name);
     ParkingLot findParkingLotByName(String name);
-    ParkingLot updateCapacityByName(String name,int capacity);
+    void updateParkingLotWithCapacityByName(String name,int capacity);
 }
