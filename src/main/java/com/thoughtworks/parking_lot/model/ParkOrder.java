@@ -3,7 +3,7 @@ package com.thoughtworks.parking_lot.model;
 import javax.persistence.*;
 
 @Entity
-public class Order {
+public class ParkOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,10 @@ public class Order {
     @Column(name = "status",nullable = false)
     private String status;
 
-    public Order() {
+    public ParkOrder() {
     }
 
-    public Order(String lotName, String carNo, long createTime, String status) {
+    public ParkOrder(String lotName, String carNo, long createTime, String status) {
         this.lotName = lotName;
         this.carNo = carNo;
         this.createTime = createTime;
@@ -36,10 +36,6 @@ public class Order {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getLotName() {

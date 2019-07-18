@@ -2,7 +2,7 @@ package com.thoughtworks.parking_lot.controller_test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.parking_lot.controller.OrderController;
-import com.thoughtworks.parking_lot.model.Order;
+import com.thoughtworks.parking_lot.model.ParkOrder;
 import com.thoughtworks.parking_lot.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +44,7 @@ public class OrderControllerTest {
 
     @Test
     public void should_create_and_return_order() throws Exception{
-        Order order = new Order("lot1", "A380", new Date().getTime(), "open");
+        ParkOrder order = new ParkOrder("lot1", "A380", new Date().getTime(), "open");
 
         when(orderService.saveOrder(any())).thenReturn(order);
 

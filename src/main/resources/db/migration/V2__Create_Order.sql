@@ -1,4 +1,4 @@
-create table `order`(
+create table `park_order`(
     `id` int not null auto_increment primary key ,
     `lot_name` varchar(255) not null,
     `car_no` varchar(255) not null ,

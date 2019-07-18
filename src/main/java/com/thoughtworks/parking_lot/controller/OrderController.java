@@ -1,6 +1,6 @@
 package com.thoughtworks.parking_lot.controller;
 
-import com.thoughtworks.parking_lot.model.Order;
+import com.thoughtworks.parking_lot.model.ParkOrder;
 import com.thoughtworks.parking_lot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/orders")
-    public Order createOrder(@RequestBody Order order){
+    public ParkOrder createOrder(@RequestBody ParkOrder order){
         return orderService.saveOrder(order);
     }
 
