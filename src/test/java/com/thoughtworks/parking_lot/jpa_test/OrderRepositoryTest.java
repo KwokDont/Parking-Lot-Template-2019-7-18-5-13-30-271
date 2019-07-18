@@ -26,4 +26,13 @@ public class OrderRepositoryTest {
 
         Assertions.assertEquals("A380",getOrder.getCarNo());
     }
+
+    @Test
+    public void should_update_order_and_parking_lot_info(){
+        ParkOrder order = new ParkOrder("lot1", "A380", new Date().getTime(), "open");
+        ParkOrder saveOrder = orderRepository.save(order);
+        ParkOrder getOrder = orderRepository.findById(saveOrder.getId()).get();
+
+        Assertions.assertEquals("A380",getOrder.getCarNo());
+    }
 }

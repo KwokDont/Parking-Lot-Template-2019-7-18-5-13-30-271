@@ -34,6 +34,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ParkOrder takeCar(ParkOrder order) {
-        return null;
+        if(order.getStatus().equals("close")){
+            return null;
+        }
+        ParkingLot parkingLot = parkingLotRepository.findParkingLotByName(order.getLotName());
+        parkingLot.setCapacity(parkingLot.getCapacity() - 1);
+        parkingLotRepository.save(parkingLot);
+        order.setStatus("close");
+        return orderRepository.save(order);
     }
 }
