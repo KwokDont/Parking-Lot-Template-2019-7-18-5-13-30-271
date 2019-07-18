@@ -55,4 +55,14 @@ public class ParkingLotControllerTest {
         resultActions.andExpect(status().isOk())
             .andExpect(jsonPath("$.name", is("lot1")));
     }
+
+    @Test
+    void should_return_parking_lot_when_delete_parking_lot_by_name() throws Exception{
+        ParkingLot parkingLot = new ParkingLot("lot1",20,"zha");
+
+        ResultActions resultActions = mockMvc.perform(delete("/parkinglots/{name}","lot1"));
+
+        resultActions.andExpect(status().isOk());
+        verify(parkingLotRepository).deleteParkingLotByName("lot1");
+    }
 }
