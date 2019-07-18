@@ -1,10 +1,11 @@
-package com.thoughtworks.parking_lot;
+package com.thoughtworks.parking_lot.controller_test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.thoughtworks.parking_lot.controller.ParkingLotController;
 import com.thoughtworks.parking_lot.model.ParkingLot;
 import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -36,6 +39,9 @@ public class ParkingLotControllerTest {
 
     @MockBean
     private ParkingLotRepository parkingLotRepository;
+
+    @BeforeEach
+    void setup(){mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build(); }
 
     @Test
     void should_return_parking_lot_when_create_parking_lot() throws Exception{
