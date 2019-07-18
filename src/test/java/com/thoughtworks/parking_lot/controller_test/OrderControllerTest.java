@@ -46,9 +46,9 @@ public class OrderControllerTest {
     public void should_create_and_return_order() throws Exception{
         ParkOrder order = new ParkOrder("lot1", "A380", new Date().getTime(), "open");
 
-        when(orderService.saveOrder(any())).thenReturn(order);
+        when(orderService.saveOrder(any(), any(), any())).thenReturn(order);
 
-        ResultActions resultActions = mockMvc.perform(post("/orders").contentType(MediaType.APPLICATION_JSON_UTF8)
+        ResultActions resultActions = mockMvc.perform(post("/orders?lotName=lot1&carNo=A380").contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(order)));
 
         resultActions.andExpect(status().isOk())

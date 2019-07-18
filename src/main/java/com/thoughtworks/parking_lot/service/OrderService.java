@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface OrderService {
-    ParkOrder saveOrder(ParkOrder order);
+    ParkOrder saveOrder(ParkOrder order, String parkingLotName, String carNo);
 }
