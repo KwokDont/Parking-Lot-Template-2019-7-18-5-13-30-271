@@ -34,4 +34,9 @@ public class ParkingLotController {
         return ParkingLotPage;
     }
 
+    @GetMapping("/parkinglots/{name}")
+    public ParkingLot findParkingLotByName(@PathVariable String name){
+        return repository.findParkingLotByName(name);
+    }
+
 }

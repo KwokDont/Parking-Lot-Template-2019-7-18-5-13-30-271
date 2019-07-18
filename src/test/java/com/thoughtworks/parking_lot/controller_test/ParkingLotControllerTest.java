@@ -82,4 +82,16 @@ public class ParkingLotControllerTest {
         verify(parkingLotRepository).findAll(pageable);
     }
 
+    @Test
+    void should_return_parking_lot_when_find_by_name() throws Exception{
+        ParkingLot parkingLot = new ParkingLot("lot1",20,"zha");
+
+        when(parkingLotRepository.findParkingLotByName(any())).thenReturn(parkingLot);
+
+        ResultActions resultActions = mockMvc.perform(get("/parkinglots/{name}","lot1"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.name",is("lot1")));
+    }
+
 }
