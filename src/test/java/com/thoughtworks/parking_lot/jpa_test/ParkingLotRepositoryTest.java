@@ -56,4 +56,15 @@ public class ParkingLotRepositoryTest {
 
         Assertions.assertEquals(2,parkingLots1.size());
     }
+
+    @Test
+    void should_return_parking_lot_when_find_by_name(){
+        ParkingLot parkingLot = new ParkingLot("lot1",20,"zha");
+
+        parkingLotRepository.save(parkingLot);
+        ParkingLot parkingLot2 = parkingLotRepository.findParkingLotByName(parkingLot.getName());
+
+        Assertions.assertEquals("lot1",parkingLot2.getName());
+        Assertions.assertEquals(20,parkingLot2.getCapacity());
+    }
 }
