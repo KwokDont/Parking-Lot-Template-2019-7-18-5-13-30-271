@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 public class ParkingLotRepositoryTest {
@@ -22,5 +24,16 @@ public class ParkingLotRepositoryTest {
         ParkingLot parkingLot1 = parkingLotRepository.save(parkingLot);
 
         Assertions.assertEquals("lot1",parkingLot1.getName());
+    }
+
+    @Test
+    void should_delete_parking_lot_when_given_name(){
+        ParkingLot parkingLot = new ParkingLot("lot1",20,"zha");
+        ParkingLot parkingLot1 = parkingLotRepository.save(parkingLot);
+        parkingLotRepository.deleteParkingLotByName("lot1");
+        List<ParkingLot> parkingLots = parkingLotRepository.findAll();
+
+        Assertions.assertEquals("lot1",parkingLot1.getName());
+        Assertions.assertEquals(0,parkingLots.size());
     }
 }
