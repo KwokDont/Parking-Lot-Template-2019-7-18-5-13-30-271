@@ -94,4 +94,12 @@ public class ParkingLotControllerTest {
                 .andExpect(jsonPath("$.name",is("lot1")));
     }
 
+    @Test
+    void should_update_capacity_of_specific_parking_lot() throws Exception{
+        ResultActions resultActions = mockMvc.perform(patch("/parkinglots?name=lot1&capacity=22"));
+
+        resultActions.andExpect(status().isOk());
+        verify(parkingLotRepository).updateCapacityByName("lot1",22);
+    }
+
 }

@@ -39,4 +39,9 @@ public class ParkingLotController {
         return repository.findParkingLotByName(name);
     }
 
+    @PatchMapping("/parkinglots")
+    public void updateParkingLotCapacity(@RequestParam String name,@RequestParam int capacity){
+        repository.updateCapacityByName(name,capacity);
+    }
+
 }
