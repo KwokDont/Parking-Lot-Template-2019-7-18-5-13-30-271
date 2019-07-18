@@ -11,6 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,6 +21,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.data.domain.Page;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -65,4 +72,14 @@ public class ParkingLotControllerTest {
         resultActions.andExpect(status().isOk());
         verify(parkingLotRepository).deleteParkingLotByName("lot1");
     }
+
+    @Test
+    void should_return_parking_lot_list_when_find_by_range() throws Exception{
+        Pageable pageable = PageRequest.of(1, 20);
+        ResultActions resultActions = mockMvc.perform(get("/parkinglots?page=1&pageSize=20"));
+
+        resultActions.andExpect(status().isOk());
+        verify(parkingLotRepository).findAll(pageable);
+    }
+
 }
