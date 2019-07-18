@@ -73,7 +73,8 @@ public class ParkingLotRepositoryTest {
         ParkingLot parkingLot = new ParkingLot("lot1",20,"zha");
 
         ParkingLot parkingLot2 = parkingLotRepository.save(parkingLot);
-        parkingLotRepository.updateParkingLotWithCapacityByName(parkingLot.getName(),25);
+        parkingLot2.setCapacity(25);
+        parkingLotRepository.save(parkingLot2);
         ParkingLot parkingLot3 = parkingLotRepository.findParkingLotByName(parkingLot2.getName());
 
         Assertions.assertEquals(25,parkingLot3.getCapacity());

@@ -40,8 +40,8 @@ public class ParkingLotController {
     }
 
     @PatchMapping("/parkinglots")
-    public void updateParkingLotCapacity(@RequestParam String name,@RequestParam int capacity){
-        repository.updateParkingLotWithCapacityByName(name,capacity);
+    public void updateParkingLotCapacity(@RequestBody ParkingLot parkingLot){
+        repository.save(parkingLot);
     }
 
 }

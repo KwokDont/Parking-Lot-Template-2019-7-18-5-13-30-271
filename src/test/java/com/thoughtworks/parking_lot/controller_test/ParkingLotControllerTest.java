@@ -65,8 +65,6 @@ public class ParkingLotControllerTest {
 
     @Test
     void should_return_parking_lot_when_delete_parking_lot_by_name() throws Exception{
-        ParkingLot parkingLot = new ParkingLot("lot1",20,"zha");
-
         ResultActions resultActions = mockMvc.perform(delete("/parkinglots/{name}","lot1"));
 
         resultActions.andExpect(status().isOk());
@@ -96,10 +94,12 @@ public class ParkingLotControllerTest {
 
     @Test
     void should_update_capacity_of_specific_parking_lot() throws Exception{
-        ResultActions resultActions = mockMvc.perform(patch("/parkinglots?name=lot1&capacity=22"));
+        ParkingLot parkingLot = new ParkingLot("lot1",22,"sanfan");
+        ResultActions resultActions = mockMvc.perform(patch("/parkinglots").contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(new ObjectMapper().writeValueAsString(parkingLot)));
 
         resultActions.andExpect(status().isOk());
-        verify(parkingLotRepository).updateParkingLotWithCapacityByName("lot1",22);
+        verify(parkingLotRepository).save(any());
     }
 
 }
